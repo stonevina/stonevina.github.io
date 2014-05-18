@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hello World | evina</title>
+  <title>evina</title>
   <meta name="author" content="践行者">
   
   <meta name="description" content="love forever">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Hello World"/>
+  
   <meta property="og:site_name" content="evina"/>
 
   
@@ -34,9 +34,13 @@
 <nav id="main-nav" class="alignright">
   <ul>
     
-      <li><a href="/">Home</a></li>
+      <li><a href="/">首页</a></li>
     
-      <li><a href="/archives">Archives</a></li>
+      <li><a href="/archives">存档</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+      <li><a href="/todolist">ToDo</a></li>
     
   </ul>
   <div class="clearfix"></div>
@@ -49,17 +53,35 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-05-18T09:28:38.000Z"><a href="/2014/05/18/hello-world/">5月 18 2014</a></time>
+        <time datetime="2014-05-18T10:49:32.000Z"><a href="/2014/05/18/r.js配置文件说明/">5月 18 2014</a></time>
       
       
   
-    <h1 class="title">Hello World</h1>
+    <h1 class="title"></h1>
   
 
     </header>
     <div class="entry">
       
-        <p>Welcome to <a href="http://hexo.io">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs">documentation</a> to learn how to use.</p>
+        <p>title: [译]r.js配置文件说明 #可以改成中文的，如“新文章”<br>date: 2014-05-18 19:55:29 #发表日期，一般不改动<br>categories: RequireJS #文章文类</p>
+<h2 id="tags:_[RequireJS,_AMD,_r-js]_#文章标签，多于一项时用这种格式">tags: [RequireJS, AMD, r.js] #文章标签，多于一项时用这种格式</h2>
+<figure class="highlight js"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="code"><pre><span class="comment">/*
+ * require.js.
+ */</span>
+({
+    <span class="comment">//</span>
+    appDir: <span class="string">"some/path/"</span>,
+})
+</pre></td></tr></table></figure>
+
+
 
       
     </div>
@@ -96,20 +118,6 @@
   <h1 class="title">留言</h1>
 
   
-      <div id="fb-root"></div>
-<script>
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-</script>
-
-<div class="fb-comments" data-href="/2014/05/18/hello-world/" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
-      
-  
 </section>
 
 </div></div>
@@ -120,6 +128,10 @@
     <input type="hidden" name="q" value="site:">
   </form>
 </div>
+
+  
+
+  
 
   
 
