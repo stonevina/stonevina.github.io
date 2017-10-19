@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-  <title>egg - 为企业级框架和应用而生</title>
+  <title>启动自定义 - 为企业级框架和应用而生</title>
   <meta charset="utf-8">
   <meta name="description" content="index.description">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
@@ -45,21 +45,18 @@
 </div>
 
   <div id="container" class="container">
-    <div class="index">
-  <div class="banner block index-bg-light">
-    <div class="banner-logo"><img src="https://zos.alipayobjects.com/rmsportal/JFKAMfmPehWfhBPdCjrw.svg"/></div>
-    <div class="banner-info leftpadding">
-      <h1><p style="font-weight:bold;font-size:48px;">Born to build</p>better enterprise frameworks and apps with Node.js & Koa</h1>
-      <p style="font-size: 22px;">为企业级框架和应用而生</p>
-      <p class="banner-button">
-        <a class="btn btn-primary" href="/zh-cn/intro/quickstart.html">开始使用</a>
-        <a class="btn btn-secondary" href="https://github.com/eggjs/egg/">GitHub</a>
-      </p>
-    </div>
-  </div>
-</div>
-<div class="index-aside">
-<aside id="mobileAside" class="toc">
+    <div class="page-main">
+  <article class="markdown-body">
+    <h1>启动自定义</h1>
+    <p>我们常常需要在应用启动期间进行一些初始化工作，等初始化完成后应用才可以启动成功，并开始对外提供服务。</p>
+<p>框架提供了统一的入口文件（<code>app.js</code>）进行启动过程自定义，这个文件只返回一个函数。例如，我们需要在应用启动期间从远程接口加载一份全国城市列表，以便于后续在 Controller 中使用：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// app.js</span></div><div class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="params">app</span> =&gt;</span> &#123;</div><div class="line">  app.beforeStart(<span class="function"><span class="keyword">function</span>* (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">// 应用会等待这个函数执行完成才启动</span></div><div class="line">    app.cities = <span class="keyword">yield</span> app.curl(<span class="string">'http://example.com/city.json'</span>, &#123;</div><div class="line">      method: <span class="string">'GET'</span>,</div><div class="line">      dataType: <span class="string">'json'</span>,</div><div class="line">    &#125;);</div><div class="line">  &#125;);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>在 Controller 中就可以使用了：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// app/controller/city.js</span></div><div class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>* (<span class="params">ctx</span>) </span>&#123;</div><div class="line">  <span class="comment">// ctx.app.cities 在上面启动期间已经加载，可以直接使用</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>注意：在 <code>beforeStart</code> 中不建议做太耗时的操作，框架会有启动的超时检测。</strong></p>
+
+  </article>
+  <aside id="mobileAside" class="toc">
   <div class="mobile-menu">
     <ul><li><a href="/zh-cn/intro/" alt="指南">指南</a></li><li><a href="/api/" alt="API">API</a></li><li><a href="/zh-cn/tutorials/index.html" alt="教程">教程</a></li><li><a href="https://github.com/search?q=topic%3Aegg-plugin&type=Repositories" alt="插件">插件</a></li><li><a href="https://github.com/eggjs/egg/releases" alt="发布日志">发布日志</a></li></ul>
   </div>
@@ -78,41 +75,6 @@ mobileTrigger.onclick = function(e) {
 </script>
 
 </div>
-<div class="footer">
-  <footer class="leftpadding">
-    <ul>
-    <li>
-      <dl>
-        <dt>Github</dt>
-        <dd><a href="https://github.com/eggjs" target="_blank">Organization</a></dd>
-        <dd><a href="https://github.com/eggjs/examples" target="_blank">Examples</a></dd>
-      </dl>
-      </li><li>
-      <dl>
-        <dt>Community</dt>
-        <dd><a href="https://github.com/eggjs/egg/releases" target="_blank">Changelog</a></dd>
-        <dd><a href="https://eggjs.org/zh-cn/faq.html" target="_blank">FAQ</a></dd>
-        <dd><a href="https://github.com/eggjs/egg/issues" target="_blank">Issues</a></dd>
-      </dl>
-      </li><li>
-      <dl>
-        <dt>Links</dt>
-        <dd><a href="https://ant.design" target="_blank">Ant Design</a></dd>
-        <dd><a href="http://enclose.io" target="_blank">Enclose.IO</a></dd>
-      </dl>
-      </li>
-    </ul>
-    <div class="right">
-      <div>
-        <span>Latest: 1.9.0</span>
-        <span>Node.js: >= 6.0.0</span>
-      </div>
-      <div class="license">Released under the MIT License </div>
-      <a href="https://github.com/eggjs"><img src="/images/github.svg"/></a>
-    </div>
-  </footer>
-</div>
-
 
   </div>
 </body>

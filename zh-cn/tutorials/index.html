@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-  <title>egg - 为企业级框架和应用而生</title>
+  <title>教程 - 为企业级框架和应用而生</title>
   <meta charset="utf-8">
   <meta name="description" content="index.description">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
@@ -45,21 +45,35 @@
 </div>
 
   <div id="container" class="container">
-    <div class="index">
-  <div class="banner block index-bg-light">
-    <div class="banner-logo"><img src="https://zos.alipayobjects.com/rmsportal/JFKAMfmPehWfhBPdCjrw.svg"/></div>
-    <div class="banner-info leftpadding">
-      <h1><p style="font-weight:bold;font-size:48px;">Born to build</p>better enterprise frameworks and apps with Node.js & Koa</h1>
-      <p style="font-size: 22px;">为企业级框架和应用而生</p>
-      <p class="banner-button">
-        <a class="btn btn-primary" href="/zh-cn/intro/quickstart.html">开始使用</a>
-        <a class="btn btn-secondary" href="https://github.com/eggjs/egg/">GitHub</a>
-      </p>
-    </div>
-  </div>
-</div>
-<div class="index-aside">
-<aside id="mobileAside" class="toc">
+    <div class="page-main">
+  <article class="markdown-body">
+    <h1>教程</h1>
+    <ul>
+<li><a href="../intro/quickstart.html">快速入门</a></li>
+<li><a href="./progressive.html">渐进式开发</a></li>
+<li><a href="./restful.html">RESTful API</a></li>
+<li><a href="./async-function.html">Async Function</a></li>
+</ul>
+<h2 id="模板引擎"><a class="markdown-anchor" href="#模板引擎">#</a> 模板引擎</h2>
+<p>框架内置 <a href="https://github.com/eggjs/egg-view" target="_blank" rel="external">egg-view</a> 作为模板解决方案，并支持多模板渲染，每个模板引擎都以插件的方式引入，但保持渲染的 API 一致。查看<a href="../core/view.html">如何使用模板</a>，如果想更深入的了解，可以查看<a href="../advanced/view-plugin.html">模板插件开发</a>。</p>
+<p>可使用以下模板引擎，更多<a href="https://github.com/search?utf8=%E2%9C%93&amp;q=topic%3Aegg-view&amp;type=Repositories&amp;ref=searchresults" target="_blank" rel="external">查看</a></p>
+<ul>
+<li><a href="https://github.com/eggjs/egg-view-nunjucks" target="_blank" rel="external">egg-view-nunjucks</a></li>
+<li><a href="https://github.com/eggjs/egg-view-ejs" target="_blank" rel="external">egg-view-ejs</a></li>
+<li><a href="https://github.com/eggjs/egg-view-handlebars" target="_blank" rel="external">egg-view-handlebars</a></li>
+<li><a href="https://github.com/chrisyip/egg-view-pug" target="_blank" rel="external">egg-view-pug</a></li>
+<li><a href="https://github.com/eggjs/egg-view-xtpl" target="_blank" rel="external">egg-view-xtpl</a></li>
+</ul>
+<h2 id="数据库"><a class="markdown-anchor" href="#数据库">#</a> 数据库</h2>
+<p>官方 <a href="https://github.com/eggjs/egg/issues/388" target="_blank" rel="external">ORM 模型还在设计中</a>，但现在可以使用</p>
+<ul>
+<li><a href="https://github.com/eggjs/egg-sequelize" target="_blank" rel="external">egg-sequelize</a></li>
+<li><a href="https://github.com/eggjs/egg-mongoose" target="_blank" rel="external">egg-mongoose</a></li>
+<li><a href="https://github.com/eggjs/egg-mysql" target="_blank" rel="external">egg-mysql</a>，可查看 <a href="./mysql.html">MySQL 教程</a></li>
+</ul>
+
+  </article>
+  <aside id="mobileAside" class="toc">
   <div class="mobile-menu">
     <ul><li><a href="/zh-cn/intro/" alt="指南">指南</a></li><li><a href="/api/" alt="API">API</a></li><li><a href="/zh-cn/tutorials/index.html" alt="教程">教程</a></li><li><a href="https://github.com/search?q=topic%3Aegg-plugin&type=Repositories" alt="插件">插件</a></li><li><a href="https://github.com/eggjs/egg/releases" alt="发布日志">发布日志</a></li></ul>
   </div>
@@ -78,41 +92,6 @@ mobileTrigger.onclick = function(e) {
 </script>
 
 </div>
-<div class="footer">
-  <footer class="leftpadding">
-    <ul>
-    <li>
-      <dl>
-        <dt>Github</dt>
-        <dd><a href="https://github.com/eggjs" target="_blank">Organization</a></dd>
-        <dd><a href="https://github.com/eggjs/examples" target="_blank">Examples</a></dd>
-      </dl>
-      </li><li>
-      <dl>
-        <dt>Community</dt>
-        <dd><a href="https://github.com/eggjs/egg/releases" target="_blank">Changelog</a></dd>
-        <dd><a href="https://eggjs.org/zh-cn/faq.html" target="_blank">FAQ</a></dd>
-        <dd><a href="https://github.com/eggjs/egg/issues" target="_blank">Issues</a></dd>
-      </dl>
-      </li><li>
-      <dl>
-        <dt>Links</dt>
-        <dd><a href="https://ant.design" target="_blank">Ant Design</a></dd>
-        <dd><a href="http://enclose.io" target="_blank">Enclose.IO</a></dd>
-      </dl>
-      </li>
-    </ul>
-    <div class="right">
-      <div>
-        <span>Latest: 1.9.0</span>
-        <span>Node.js: >= 6.0.0</span>
-      </div>
-      <div class="license">Released under the MIT License </div>
-      <a href="https://github.com/eggjs"><img src="/images/github.svg"/></a>
-    </div>
-  </footer>
-</div>
-
 
   </div>
 </body>

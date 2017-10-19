@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-  <title>egg - 为企业级框架和应用而生</title>
+  <title>目录结构 - 为企业级框架和应用而生</title>
   <meta charset="utf-8">
   <meta name="description" content="index.description">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
@@ -45,21 +45,37 @@
 </div>
 
   <div id="container" class="container">
-    <div class="index">
-  <div class="banner block index-bg-light">
-    <div class="banner-logo"><img src="https://zos.alipayobjects.com/rmsportal/JFKAMfmPehWfhBPdCjrw.svg"/></div>
-    <div class="banner-info leftpadding">
-      <h1><p style="font-weight:bold;font-size:48px;">Born to build</p>better enterprise frameworks and apps with Node.js & Koa</h1>
-      <p style="font-size: 22px;">为企业级框架和应用而生</p>
-      <p class="banner-button">
-        <a class="btn btn-primary" href="/zh-cn/intro/quickstart.html">开始使用</a>
-        <a class="btn btn-secondary" href="https://github.com/eggjs/egg/">GitHub</a>
-      </p>
-    </div>
-  </div>
-</div>
-<div class="index-aside">
-<aside id="mobileAside" class="toc">
+    <div class="page-main">
+  <article class="markdown-body">
+    <h1>目录结构</h1>
+    <p>在<a href="../intro/quickstart.html">快速入门</a>中，大家对框架应该有了初步的印象，接下来我们简单了解下目录约定规范。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">egg-project</div><div class="line">├── package.json</div><div class="line">├── app.js (可选)</div><div class="line">├── agent.js (可选)</div><div class="line">├── app</div><div class="line">|   ├── router.js</div><div class="line">│   ├── controller</div><div class="line">│   |   └── home.js</div><div class="line">│   ├── service (可选)</div><div class="line">│   |   └── user.js</div><div class="line">│   ├── middleware (可选)</div><div class="line">│   |   └── response_time.js</div><div class="line">│   ├── schedule (可选)</div><div class="line">│   |   └── my_task.js</div><div class="line">│   ├── public (可选)</div><div class="line">│   |   └── reset.css</div><div class="line">│   ├── view (可选)</div><div class="line">│   |   └── home.tpl</div><div class="line">│   └── extend (可选)</div><div class="line">│       ├── helper.js (可选)</div><div class="line">│       ├── request.js (可选)</div><div class="line">│       ├── response.js (可选)</div><div class="line">│       ├── context.js (可选)</div><div class="line">│       ├── application.js (可选)</div><div class="line">│       └── agent.js (可选)</div><div class="line">├── config</div><div class="line">|   ├── plugin.js</div><div class="line">|   ├── config.default.js</div><div class="line">│   ├── config.prod.js</div><div class="line">|   ├── config.test.js (可选)</div><div class="line">|   ├── config.local.js (可选)</div><div class="line">|   └── config.unittest.js (可选)</div><div class="line">└── <span class="built_in">test</span></div><div class="line">    ├── middleware</div><div class="line">    |   └── response_time.test.js</div><div class="line">    └── controller</div><div class="line">        └── home.test.js</div></pre></td></tr></table></figure>
+<p>如上，由框架约定的目录：</p>
+<ul>
+<li><code>app/router.js</code> 用于配置 URL 路由规则，具体参见 <a href="./router.html">Router</a>。</li>
+<li><code>app/controller/**</code> 用于解析用户的输入，处理后返回相应的结果，具体参见 <a href="./controller.html">Controller</a>。</li>
+<li><code>app/service/**</code> 用于编写业务逻辑层，可选，建议使用，具体参见 <a href="./service.html">Service</a>。</li>
+<li><code>app/middleware/**</code> 用于编写中间件，可选，具体参见 <a href="./middleware.html">Middleware</a>。</li>
+<li><code>app/public/**</code> 用于放置静态资源，可选，具体参见内置插件 <a href="https://github.com/eggjs/egg-static" target="_blank" rel="external">egg-static</a>。</li>
+<li><code>app/extend/**</code> 用于框架的扩展，可选，具体参见<a href="./extend.html">框架扩展</a>。</li>
+<li><code>config/config.{env}.js</code> 用于编写配置文件，具体参见<a href="./config.html">配置</a>。</li>
+<li><code>config/plugin.js</code> 用于配置需要加载的插件，具体参见<a href="../advanced/plugin.html">插件开发</a>。</li>
+<li><code>test/**</code> 用于单元测试，具体参见<a href="../core/unittest.html">单元测试</a>。</li>
+<li><code>app.js</code> 和 <code>agent.js</code> 用于自定义启动时的初始化工作，可选，具体参见<a href="./app-start.html">启动自定义</a>。关于<code>agent.js</code>的作用参见<a href="../core/cluster-and-ipc.html#agent-%E6%9C%BA%E5%88%B6">Agent机制</a>。</li>
+</ul>
+<p>由内置插件约定的目录：</p>
+<ul>
+<li><code>app/public/**</code> 用于放置静态资源，可选，具体参见内置插件 <a href="https://github.com/eggjs/egg-static" target="_blank" rel="external">egg-static</a>。</li>
+<li><code>app/schedule/**</code> 用于定时任务，可选，具体参见<a href="./schedule.html">定时任务</a>。</li>
+</ul>
+<p><strong>若需自定义自己的目录规范，参见 <a href="https://eggjs.org/zh-cn/advanced/loader.html">Loader API</a></strong></p>
+<ul>
+<li><code>app/view/**</code> 用于放置模板文件，可选，由模板插件约定，具体参见<a href="../core/view.html">模板渲染</a>。</li>
+<li><code>app/model/**</code> 用于放置领域模型，可选，由领域类相关插件约定，如 <a href="https://github.com/eggjs/egg-sequelize" target="_blank" rel="external">egg-sequelize</a>。</li>
+</ul>
+
+  </article>
+  <aside id="mobileAside" class="toc">
   <div class="mobile-menu">
     <ul><li><a href="/zh-cn/intro/" alt="指南">指南</a></li><li><a href="/api/" alt="API">API</a></li><li><a href="/zh-cn/tutorials/index.html" alt="教程">教程</a></li><li><a href="https://github.com/search?q=topic%3Aegg-plugin&type=Repositories" alt="插件">插件</a></li><li><a href="https://github.com/eggjs/egg/releases" alt="发布日志">发布日志</a></li></ul>
   </div>
@@ -78,41 +94,6 @@ mobileTrigger.onclick = function(e) {
 </script>
 
 </div>
-<div class="footer">
-  <footer class="leftpadding">
-    <ul>
-    <li>
-      <dl>
-        <dt>Github</dt>
-        <dd><a href="https://github.com/eggjs" target="_blank">Organization</a></dd>
-        <dd><a href="https://github.com/eggjs/examples" target="_blank">Examples</a></dd>
-      </dl>
-      </li><li>
-      <dl>
-        <dt>Community</dt>
-        <dd><a href="https://github.com/eggjs/egg/releases" target="_blank">Changelog</a></dd>
-        <dd><a href="https://eggjs.org/zh-cn/faq.html" target="_blank">FAQ</a></dd>
-        <dd><a href="https://github.com/eggjs/egg/issues" target="_blank">Issues</a></dd>
-      </dl>
-      </li><li>
-      <dl>
-        <dt>Links</dt>
-        <dd><a href="https://ant.design" target="_blank">Ant Design</a></dd>
-        <dd><a href="http://enclose.io" target="_blank">Enclose.IO</a></dd>
-      </dl>
-      </li>
-    </ul>
-    <div class="right">
-      <div>
-        <span>Latest: 1.9.0</span>
-        <span>Node.js: >= 6.0.0</span>
-      </div>
-      <div class="license">Released under the MIT License </div>
-      <a href="https://github.com/eggjs"><img src="/images/github.svg"/></a>
-    </div>
-  </footer>
-</div>
-
 
   </div>
 </body>

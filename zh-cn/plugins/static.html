@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-  <title>egg - 为企业级框架和应用而生</title>
+  <title>egg-static - 为企业级框架和应用而生</title>
   <meta charset="utf-8">
   <meta name="description" content="index.description">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
@@ -45,21 +45,49 @@
 </div>
 
   <div id="container" class="container">
-    <div class="index">
-  <div class="banner block index-bg-light">
-    <div class="banner-logo"><img src="https://zos.alipayobjects.com/rmsportal/JFKAMfmPehWfhBPdCjrw.svg"/></div>
-    <div class="banner-info leftpadding">
-      <h1><p style="font-weight:bold;font-size:48px;">Born to build</p>better enterprise frameworks and apps with Node.js & Koa</h1>
-      <p style="font-size: 22px;">为企业级框架和应用而生</p>
-      <p class="banner-button">
-        <a class="btn btn-primary" href="/zh-cn/intro/quickstart.html">开始使用</a>
-        <a class="btn btn-secondary" href="https://github.com/eggjs/egg/">GitHub</a>
-      </p>
-    </div>
-  </div>
-</div>
-<div class="index-aside">
-<aside id="mobileAside" class="toc">
+    <div class="page-main">
+  <article class="markdown-body">
+    <h1>egg-static</h1>
+    <p><a href="https://npmjs.org/package/egg-static" target="_blank" rel="external"><img src="https://img.shields.io/npm/v/egg-static.svg?style=flat-square" alt="NPM version"></a>
+<a href="https://travis-ci.org/eggjs/egg-static" target="_blank" rel="external"><img src="https://img.shields.io/travis/eggjs/egg-static.svg?style=flat-square" alt="build status"></a>
+<a href="https://codecov.io/github/eggjs/egg-static?branch=master" target="_blank" rel="external"><img src="https://codecov.io/github/eggjs/egg-static/coverage.svg?branch=master" alt="Test coverage"></a>
+<a href="https://david-dm.org/eggjs/egg-static" target="_blank" rel="external"><img src="https://img.shields.io/david/eggjs/egg-static.svg?style=flat-square" alt="David deps"></a>
+<a href="https://snyk.io/test/npm/egg-static" target="_blank" rel="external"><img src="https://snyk.io/test/npm/egg-static/badge.svg?style=flat-square" alt="Known Vulnerabilities"></a>
+<a href="https://npmjs.org/package/egg-static" target="_blank" rel="external"><img src="https://img.shields.io/npm/dm/egg-static.svg?style=flat-square" alt="npm download"></a></p>
+<p>Static server plugin for egg, base on <a href="https://github.com/koajs/static-cache" target="_blank" rel="external">koa-static-cache</a>.</p>
+<h2 id="install"><a class="markdown-anchor" href="#install">#</a> Install</h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ npm i egg-static --save</div></pre></td></tr></table></figure>
+<h2 id="usage"><a class="markdown-anchor" href="#usage">#</a> Usage</h2>
+<p><code>egg-static</code> is a plugin that has been built-in for egg. But it is disabled by default.</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// &#123;app_root&#125;/config/plugin.js</span></div><div class="line">exports.static = <span class="literal">true</span>;</div></pre></td></tr></table></figure>
+<h2 id="configuration"><a class="markdown-anchor" href="#configuration">#</a> Configuration</h2>
+<p>egg-static support all configurations in <a href="https://github.com/koajs/static-cache" target="_blank" rel="external">koa-static-cache</a>. and with default configurations below:</p>
+<ul>
+<li>prefix: <code>/public/</code></li>
+<li>dir: <code>path.join(appInfo.baseDir, 'app/public')</code></li>
+<li>dynamic: <code>true</code></li>
+<li>preload: <code>false</code></li>
+<li>maxAge: <code>31536000</code> in prod env, <code>0</code> in other envs</li>
+<li>buffer: <code>true</code> in prod env, <code>false</code> in other envs</li>
+</ul>
+<p><code>egg-static</code> provides one more option:</p>
+<ul>
+<li>maxFiles: the maximum value of cache items, only effective when dynamic is true, default is <code>1000</code>.</li>
+</ul>
+<p><strong>All static files in <code>$baseDir/app/public</code> can be visited with prefix <code>/public</code>, and all the files are lazy loaded.</strong></p>
+<ul>
+<li>In non-production environment, assets won't be cached, your modification can take effect immediately.</li>
+<li>In production environment, <code>egg-static</code> will cache the assets after visited, you need to restart the process to update the assets.</li>
+<li>Dir default is <code>$baseDir/app/public</code> but you can also define <strong>multiple directory</strong> by use <code>dir: [dir1, dir2, ...]</code> and static server will use all these directories.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="comment">// &#123;app_root&#125;/config/config.default.js</span></div><div class="line">exports.static = &#123;</div><div class="line">  <span class="comment">// maxAge: 31536000,</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="questions-suggestions"><a class="markdown-anchor" href="#questions-suggestions">#</a> Questions &amp; Suggestions</h2>
+<p>Please open an issue <a href="https://github.com/eggjs/egg/issues" target="_blank" rel="external">here</a>.</p>
+<h2 id="license"><a class="markdown-anchor" href="#license">#</a> License</h2>
+<p><a href="https://github.com/eggjs/egg-static/blob/master/LICENSE" target="_blank" rel="external">MIT</a></p>
+
+  </article>
+  <aside id="mobileAside" class="toc">
   <div class="mobile-menu">
     <ul><li><a href="/zh-cn/intro/" alt="指南">指南</a></li><li><a href="/api/" alt="API">API</a></li><li><a href="/zh-cn/tutorials/index.html" alt="教程">教程</a></li><li><a href="https://github.com/search?q=topic%3Aegg-plugin&type=Repositories" alt="插件">插件</a></li><li><a href="https://github.com/eggjs/egg/releases" alt="发布日志">发布日志</a></li></ul>
   </div>
@@ -78,41 +106,6 @@ mobileTrigger.onclick = function(e) {
 </script>
 
 </div>
-<div class="footer">
-  <footer class="leftpadding">
-    <ul>
-    <li>
-      <dl>
-        <dt>Github</dt>
-        <dd><a href="https://github.com/eggjs" target="_blank">Organization</a></dd>
-        <dd><a href="https://github.com/eggjs/examples" target="_blank">Examples</a></dd>
-      </dl>
-      </li><li>
-      <dl>
-        <dt>Community</dt>
-        <dd><a href="https://github.com/eggjs/egg/releases" target="_blank">Changelog</a></dd>
-        <dd><a href="https://eggjs.org/zh-cn/faq.html" target="_blank">FAQ</a></dd>
-        <dd><a href="https://github.com/eggjs/egg/issues" target="_blank">Issues</a></dd>
-      </dl>
-      </li><li>
-      <dl>
-        <dt>Links</dt>
-        <dd><a href="https://ant.design" target="_blank">Ant Design</a></dd>
-        <dd><a href="http://enclose.io" target="_blank">Enclose.IO</a></dd>
-      </dl>
-      </li>
-    </ul>
-    <div class="right">
-      <div>
-        <span>Latest: 1.9.0</span>
-        <span>Node.js: >= 6.0.0</span>
-      </div>
-      <div class="license">Released under the MIT License </div>
-      <a href="https://github.com/eggjs"><img src="/images/github.svg"/></a>
-    </div>
-  </footer>
-</div>
-
 
   </div>
 </body>
