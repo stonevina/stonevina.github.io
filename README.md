@@ -1,6 +1,7 @@
 ### 文章
 - [如何正确的学习Node.js](https://github.com/i5ting/How-to-learn-node-correctly)
 - [浏览器渲染原理](https://github.com/i5ting/how-brower-work-and-perfomace-tunning)
+- [deep-into-node](https://github.com/yjhjstz/deep-into-node)-深入理解Node.js：核心思想与源码分析
 
 ### 开发/调试工具
 - [app-inspector](https://github.com/macacajs/app-inspector)-App-inspector is a mobile UI viewer in browser.
@@ -22,6 +23,8 @@
 - [browsh](https://github.com/browsh-org/browsh)-A fully-modern text-based browser, rendering to TTY and browsers
 - [loadtest](https://github.com/alexfernandez/loadtest)-Runs a load test on the selected URL. Easy to extend minimally for your own ends.
 - [goreplay](https://github.com/buger/goreplay)-GoReplay is an open-source tool for capturing and replaying live HTTP traffic into a test environment in order to continuously test your system with real data. It can be used to increase confidence in code deployments, configuration changes and infrastructure changes.
+- [blockly](https://github.com/google/blockly)-The web-based visual programming editor
+- [husky](https://github.com/typicode/husky)-Git hooks made easy
 
 
 ### 类库
@@ -46,7 +49,14 @@
 - [typy](https://github.com/flexdinesh/typy)-Minimal JavaScript type checking library
 - [dayjs](https://github.com/iamkun/dayjs)-Day.js 2KB immutable date library alternative to Moment.js with the same modern API
 - [filepond](https://github.com/pqina/filepond)-A flexible and fun JavaScript file upload library
+- [jQuery-File-Upload](https://github.com/blueimp/jQuery-File-Upload)-File Upload widget with multiple file selection, drag&drop support, progress bar, validation and preview images, audio and video for jQuery. Supports cross-domain, chunked and resumable file uploads. Works with any server-side platform (Google App Engine, PHP, Python, Ruby on Rails, Java, etc.) that supports standard HTML form file uploads.
 - [moleculer](https://github.com/moleculerjs/moleculer)-Progressive microservices framework for Node.js
+- [async-validator](https://github.com/yiminghe/async-validator)-validate form asynchronous
+- [schema-object](https://github.com/scotthovestadt/schema-object)-Enforce schema on JavaScript objects, including type, transformation, and validation. Supports extends, sub-schemas, and arrays.
+- [chokidar](https://github.com/paulmillr/chokidar)-A neat wrapper around node.js fs.watch / fs.watchFile / fsevents.
+- [fast-json-stringify](https://github.com/fastify/fast-json-stringify)-2x faster than JSON.stringify()
+- [chancejs](https://github.com/chancejs/chancejs)-Chance - Random generator helper for JavaScript
+
 
 
 ### 图形
@@ -56,6 +66,9 @@
 - [maptalks.js](https://github.com/maptalks/maptalks.js)-A light and plugable JavaScript library for integrated 2D/3D maps.
 - [g6](https://github.com/antvis/g6)-A Graph Visualization Framework in JavaScript
 - [spritejs](https://github.com/spritejs/spritejs)-A cross-platform lightweight 2D render object model.
+- [fabric.js](https://github.com/fabricjs/fabric.js)-Javascript Canvas Library, SVG-to-Canvas (& canvas-to-SVG) Parser
+- [matter-js](https://github.com/liabru/matter-js)-a 2D rigid body physics engine for the web
+- [d3-graphviz](https://github.com/magjac/d3-graphviz)-Graphviz DOT rendering and animated transitions using D3
 
 
 ### 交互
@@ -70,23 +83,36 @@
 - [vapor](https://github.com/vapor/vapor)-A server-side Swift web framework.
 - [nuxt.js](https://github.com/nuxt/nuxt.js)-The Vue.js Developers Framework
 - [gatsby](https://github.com/gatsbyjs/gatsby)-Blazing fast site generator for React
+- [nest](https://github.com/nestjs/nest)-A progressive Node.js framework for building efficient and scalable server-side applications on top of TypeScript & JavaScript (ES6, ES7, ES8) heavily inspired by Angular
+- [aurelia](https://github.com/aurelia/framework)-The aurelia framework brings together all the required core aurelia libraries into a ready-to-go application-building platform.
+- [fastify](https://github.com/fastify/fastify)-Fast and low overhead web framework, for Node.js
 
 ### UI框架
 - [lulu](https://github.com/yued-fe/lulu)-LuLu UI for PC web
 - [evergreen](https://github.com/segmentio/evergreen)-Evergreen React UI Framework by Segment
 - [vuetify](https://github.com/vuetifyjs/vuetify)-Material Component Framework for Vue.js 2
+- [ant-design-pro](https://github.com/ant-design/ant-design-pro)-👨🏻‍💻👩🏻‍💻 Use Ant Design like a Pro!
 
 ### 构建工具
 - [parcel](https://github.com/parcel-bundler/parcel)-Blazing fast, zero configuration web application bundler
+- [rollup](https://github.com/rollup/rollup)-Next-generation ES module bundler
+- [happypack](https://github.com/amireh/happypack)-Happiness in the form of faster webpack build times.
 
 ### passport
 - [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)-JsonWebToken implementation for node.js
 
-### Nodejs监控
+### 性能监控
 - [node-clinic](https://github.com/nearform/node-clinic)-Clinic diagnoses your Node.js performance issues
 - [node-in-debugging](https://github.com/nswbmw/node-in-debugging)-《Node.js 调试指南》
 - [FlameGraph](https://github.com/brendangregg/FlameGraph)-Stack trace visualizer
 - [v8-profiler](https://github.com/node-inspector/v8-profiler)-node bindings for the v8 profiler
+- [lighthouse](https://github.com/GoogleChrome/lighthouse)-Auditing, performance metrics, and best practices for Progressive Web Apps
+- [appmetrics](https://github.com/RuntimeTools/appmetrics)-Node Application Metrics provides a foundational infrastructure for collecting resource and performance monitoring data for Node.js-based applications. 
+- [leakage](https://github.com/andywer/leakage)-🐛 Memory leak testing for node.
+- [web-performance](https://github.com/anjia/web-performance)-web performance讲解
+
+### 模版
+- [nunjucks](https://github.com/mozilla/nunjucks)-A powerful templating engine with inheritance, asynchronous control, and more (jinja2 inspired)
 
 ### 大数据分析
 - [incubator-superset](https://github.com/apache/incubator-superset)-Apache Superset (incubating) is a modern, enterprise-ready business intelligence web application
@@ -94,10 +120,16 @@
 ### runtime
 - [deno](https://github.com/denoland/deno)-A secure TypeScript runtime on V8
 - [miniblink49](https://github.com/weolar/miniblink49)-一个小巧、轻量的浏览器内核，用来取代wke和libcef
+- [napajs](https://github.com/Microsoft/napajs)-Napa.js: a multi-threaded JavaScript runtime
+- [VasSonic](https://github.com/Tencent/VasSonic)-VasSonic is a lightweight and high-performance Hybrid framework developed by tencent VAS team, which is intended to speed up the first screen of websites working on Android and iOS platform.
+- [node](https://github.com/nodejs/node)-Node.js JavaScript runtime ✨🐢🚀✨
 
 ### 自动化测试
 - [macaca](https://github.com/alibaba/macaca)-Automation test solution for native, hybrid, mobile web and web application on mobile and desktop platforms.多端自动化测试解决方案
 - [puppeteer](https://github.com/GoogleChrome/puppeteer)-Headless Chrome Node API
+
+### 分布式
+- [zipkin](https://github.com/openzipkin/zipkin)-Zipkin is a distributed tracing system
 
 ### 微信
 - [awesome-wechat-weapp](https://github.com/justjavac/awesome-wechat-weapp)-微信小程序开发资源汇总
@@ -108,8 +140,24 @@
 ### Promise
 - [promise-fun](https://github.com/sindresorhus/promise-fun)-Promise packages, patterns, chat, and tutorials
 
+### Database
+- [sharedb](https://github.com/share/sharedb)-A database frontend for concurrent editing systems
+
+### 规范
+- [HEAD](https://github.com/joshbuchea/HEAD)-A list of everything that *could* go in the head of your document
+
 ### 算法与数据结构
 - [javascript-algorithms](https://github.com/trekhleb/javascript-algorithms)-Algorithms and data structures implemented in JavaScript with explanations and links to further readings
+- [The-Art-Of-Programming-By-July](https://github.com/julycoding/The-Art-Of-Programming-By-July)-本项目曾冲到全球第一，干货集锦见本页面最底部，另完整精致的纸质版《编程之法：面试和算法心得》已在京东/当当上销售
 
 ### 资源汇总
 - [awesome-nodejs](https://github.com/sindresorhus/awesome-nodejs)-Delightful Node.js packages and resources
+- [gold-miner](https://github.com/xitu/gold-miner)-掘金翻译计划，可能是世界最大最好的英译中技术社区，最懂读者和译者的翻译平台
+- [SunShinewyf-blog](https://github.com/SunShinewyf/issue-blog)
+- [Command-line-text-processing](https://github.com/learnbyexample/Command-line-text-processing)-⚡️ From finding text to search and replace, from sorting to beautifying text and more 🎨
+- [nodebestpractices](https://github.com/i0natan/nodebestpractices)-The largest Node.JS best practices list
+- [Web-Series](https://github.com/wxyyxc1992/Web-Series)-📚 现代 Web 开发，现代 Web 开发导论 | 基础篇 | 进阶篇 | 架构优化篇 | React 篇 | Vue 篇
+
+
+
+
