@@ -1,4 +1,5 @@
 ### 文章
+- [我是如何面试一位前端工程师](https://zhuanlan.zhihu.com/p/30487025)
 - [如何正确的学习Node.js](https://github.com/i5ting/How-to-learn-node-correctly)
 - [浏览器渲染原理](https://github.com/i5ting/how-brower-work-and-perfomace-tunning)
 - [deep-into-node](https://github.com/yjhjstz/deep-into-node)-深入理解Node.js：核心思想与源码分析
@@ -25,6 +26,7 @@
 - [goreplay](https://github.com/buger/goreplay)-GoReplay is an open-source tool for capturing and replaying live HTTP traffic into a test environment in order to continuously test your system with real data. It can be used to increase confidence in code deployments, configuration changes and infrastructure changes.
 - [blockly](https://github.com/google/blockly)-The web-based visual programming editor
 - [husky](https://github.com/typicode/husky)-Git hooks made easy
+- [concurrently](https://github.com/kimmobrunfeldt/concurrently)-Run commands concurrently. Like `npm run watch-js & npm run watch-less` but better.
 
 
 ### 类库
@@ -97,9 +99,13 @@
 - [parcel](https://github.com/parcel-bundler/parcel)-Blazing fast, zero configuration web application bundler
 - [rollup](https://github.com/rollup/rollup)-Next-generation ES module bundler
 - [happypack](https://github.com/amireh/happypack)-Happiness in the form of faster webpack build times.
+- [create-react-app](https://github.com/facebook/create-react-app)-Create React apps with no build configuration.
 
 ### passport
 - [node-jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)-JsonWebToken implementation for node.js
+
+### Linux
+- [Linux-Tutorial](https://github.com/judasn/Linux-Tutorial)-《Java 程序员眼中的 Linux》
 
 ### 性能监控
 - [node-clinic](https://github.com/nearform/node-clinic)-Clinic diagnoses your Node.js performance issues
@@ -128,6 +134,9 @@
 - [macaca](https://github.com/alibaba/macaca)-Automation test solution for native, hybrid, mobile web and web application on mobile and desktop platforms.多端自动化测试解决方案
 - [puppeteer](https://github.com/GoogleChrome/puppeteer)-Headless Chrome Node API
 
+### PWA
+- [workbox](https://github.com/GoogleChrome/workbox)-Workbox: JavaScript libraries for Progressive Web Apps
+
 ### 分布式
 - [zipkin](https://github.com/openzipkin/zipkin)-Zipkin is a distributed tracing system
 
@@ -145,6 +154,7 @@
 
 ### 规范
 - [HEAD](https://github.com/joshbuchea/HEAD)-A list of everything that *could* go in the head of your document
+- [Front-End-Checklist](https://github.com/thedaviddias/Front-End-Checklist)-The perfect Front-End Checklist for modern websites and meticulous developers
 
 ### 算法与数据结构
 - [javascript-algorithms](https://github.com/trekhleb/javascript-algorithms)-Algorithms and data structures implemented in JavaScript with explanations and links to further readings
