@@ -152,6 +152,12 @@
 ### Database
 - [sharedb](https://github.com/share/sharedb)-A database frontend for concurrent editing systems
 
+### microtask、macrotask、event loop
+- [Tasks, microtasks, queues and schedules](http://ftandy.com/2015/08/23/2015-08-23-tasks-microtasks-queues-and-schedules/)
+- [Difference between microtask and macrotask](https://stackoverflow.com/questions/25915634/difference-between-microtask-and-macrotask-within-an-event-loop-context)
+- [从HTML5与PromiseA+规范来看事件循环](https://github.com/Aaaaaaaty/Blog/issues/13)
+- [事件循环与任务队列](https://kongchenglc.github.io/blog/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF20171026/)
+
 ### 规范
 - [HEAD](https://github.com/joshbuchea/HEAD)-A list of everything that *could* go in the head of your document
 - [Front-End-Checklist](https://github.com/thedaviddias/Front-End-Checklist)-The perfect Front-End Checklist for modern websites and meticulous developers
