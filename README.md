@@ -173,5 +173,6 @@
 - [Command-line-text-processing](https://github.com/learnbyexample/Command-line-text-processing)-⚡️ From finding text to search and replace, from sorting to beautifying text and more 🎨
 - [nodebestpractices](https://github.com/i0natan/nodebestpractices)-The largest Node.JS best practices list
 - [Web-Series](https://github.com/wxyyxc1992/Web-Series)-📚 现代 Web 开发，现代 Web 开发导论、基础篇、进阶篇、架构优化篇、React篇、Vue 篇
+- [Mac OSX终端走shadowsocks代理](https://github.com/mrdulin/blog/issues/18)
 
 
