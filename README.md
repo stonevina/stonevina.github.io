@@ -3,6 +3,8 @@
 - [如何正确的学习Node.js](https://github.com/i5ting/How-to-learn-node-correctly)
 - [浏览器渲染原理](https://github.com/i5ting/how-brower-work-and-perfomace-tunning)
 - [deep-into-node](https://github.com/yjhjstz/deep-into-node)-深入理解Node.js：核心思想与源码分析
+- [迷茫时学习Node.js最好的方法](https://zhuanlan.zhihu.com/p/29625882)
+- [通过开源项目去学习](https://github.com/i5ting/Study-For-StuQ)
 
 ### 开发/调试工具
 - [app-inspector](https://github.com/macacajs/app-inspector)-App-inspector is a mobile UI viewer in browser.
@@ -148,6 +150,9 @@
 
 ### Promise
 - [promise-fun](https://github.com/sindresorhus/promise-fun)-Promise packages, patterns, chat, and tutorials
+- [Node.js最新技术栈之Promise篇](https://cnodejs.org/topic/560dbc826a1ed28204a1e7de)
+- [理解 Promise 的工作原理](https://cnodejs.org/topic/569c8226adf526da2aeb23fd)
+- [Promise 迷你书](http://liubin.org/promises-book/)
 
 ### Database
 - [sharedb](https://github.com/share/sharedb)-A database frontend for concurrent editing systems
@@ -174,5 +179,6 @@
 - [nodebestpractices](https://github.com/i0natan/nodebestpractices)-The largest Node.JS best practices list
 - [Web-Series](https://github.com/wxyyxc1992/Web-Series)-📚 现代 Web 开发，现代 Web 开发导论、基础篇、进阶篇、架构优化篇、React篇、Vue 篇
 - [Mac OSX终端走shadowsocks代理](https://github.com/mrdulin/blog/issues/18)
+- [awesome-micro-npm-packages](https://github.com/parro-it/awesome-micro-npm-packages)-A curated list of small, focused npm packages.
 
 
