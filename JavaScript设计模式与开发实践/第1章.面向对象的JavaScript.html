@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>面向对象的JavaScript</title>
+  <link rel="stylesheet" href="../lib/styles/default.css">
+  <link rel="stylesheet" href="../lib/styles/atom-one-dark.css">
+  <script src="../lib/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
 </head>
 <body>
   <h3>JavaScript面向对象的现状</h3>
@@ -42,79 +46,79 @@
   <p>鸭子类型指导我们只关注对象的行为，而不关注对象本身，也就是关注 HAS-A, 而不是 IS-A</p>
   <p>利用鸭子类型的思想，在动态语言中实现一个原则：面向接口编程，而不是面向实现编程</p>
 
-  <script>
-    var duck = {
-      duckSinging: function() {
-        console.log('嘎嘎嘎');
-      }
-    };
+  <pre><code>
+  var duck = {
+    duckSinging: function() {
+      console.log('嘎嘎嘎');
+    }
+  };
 
-    var chicken = {
-      duckSinging: function() {
-        console.log('嘎嘎嘎');
-      }
-    };
+  var chicken = {
+    duckSinging: function() {
+      console.log('嘎嘎嘎');
+    }
+  };
 
-    var choir = []; // 合唱团
-    var joinChoir = function(animal) {
-      if (animal && typeof animal.duckSinging === 'function') {
-        choir.push(animal);
-        console.log('恭喜加入合唱团');
-        console.log('合唱团已有成员数量:' + choir.length);
-      }
-    };
+  var choir = []; // 合唱团
+  var joinChoir = function(animal) {
+    if (animal && typeof animal.duckSinging === 'function') {
+      choir.push(animal);
+      console.log('恭喜加入合唱团');
+      console.log('合唱团已有成员数量:' + choir.length);
+    }
+  };
 
-    joinChoir(duck); // 恭喜加入合唱团
-    joinChoir(chicken); // 恭喜加入合唱团
-  </script>
+  joinChoir(duck); // 恭喜加入合唱团
+  joinChoir(chicken); // 恭喜加入合唱团
+  </code></pre>
 
   <h2>1.2 多态</h2>
   <h3>多态</h3>
   <p>多态: 希腊文 polymorphism =  poly（复数） + morph（形态） + ism</p>
   <p>同一操作作用于不同的对象上面，可以产生不同的解释和不同的执行结果</p>
 
-  <script>
-    // 一段“多态”的JavaScript代码
-    var makeSound = function(animal) {
-      if (animal instanceof Duck) {
-        console.log('嘎嘎嘎');
-      } else if (animal instanceof Chicken) {
-        console.log('咯咯咯');
-      }
-    };
-
-    var Duck = function() {};
-    var Chicken = function() {};
-
-    makeSound(new Duck()); // 嘎嘎嘎
-    makeSound(new Chicken()); // 咯咯咯
-
-    // 对象的多态性
-    // 将不变的部分封闭，可变的部分开放，复合开放-封闭原则
-    var makeSound = function(animal) {
-      animal.sound();
-    };
-    var Duck = function() {};
-    Duck.prototype.sound = function() {
+  <pre><code>
+  // 一段“多态”的JavaScript代码
+  var makeSound = function(animal) {
+    if (animal instanceof Duck) {
       console.log('嘎嘎嘎');
-    };
-    
-    var Chicken = function() {};
-    Chicken.prototype.sound = function() {
-      console.log( '咯咯咯' );
-    };
+    } else if (animal instanceof Chicken) {
+      console.log('咯咯咯');
+    }
+  };
 
-    makeSound(new Duck()); // 嘎嘎嘎
-    makeSound(new Chicken()); // 咯咯咯
+  var Duck = function() {};
+  var Chicken = function() {};
 
-    // 增加新的类型
-    var Dog = function() {};
-    Dog.prototype.sound = function() {
-      console.log( '汪汪汪' );
-    };
+  makeSound(new Duck()); // 嘎嘎嘎
+  makeSound(new Chicken()); // 咯咯咯
 
-    makeSound(new Dog()); // 汪汪汪
-  </script>
+  // 对象的多态性
+  // 将不变的部分封闭，可变的部分开放，复合开放-封闭原则
+  var makeSound = function(animal) {
+    animal.sound();
+  };
+  var Duck = function() {};
+  Duck.prototype.sound = function() {
+    console.log('嘎嘎嘎');
+  };
+  
+  var Chicken = function() {};
+  Chicken.prototype.sound = function() {
+    console.log( '咯咯咯' );
+  };
+
+  makeSound(new Duck()); // 嘎嘎嘎
+  makeSound(new Chicken()); // 咯咯咯
+
+  // 增加新的类型
+  var Dog = function() {};
+  Dog.prototype.sound = function() {
+    console.log( '汪汪汪' );
+  };
+
+  makeSound(new Dog()); // 汪汪汪
+  </code></pre>
   
   <h4>类型检查和多态</h4>
   <p>
@@ -141,19 +145,19 @@
     <li>封装数据是由语法解析来实现的，实现private、public、 protected赋予不同的访问权限</li>
     <li>JavaScript依赖函数作用域实现封装，只能模拟public、private</li>
   </ul>
-  <script>
-    var myObject = (function() {
-      var _name = 'sven'; // private变量
-      return {
-        getName: function() { // public变量
-          return _name;
-        }
+  <pre><code>
+  var myObject = (function() {
+    var _name = 'sven'; // private变量
+    return {
+      getName: function() { // public变量
+        return _name;
       }
-    })();
+    }
+  })();
 
-    console.log(myObject.getName()); // sven
-    console.log(myObject._name); // undefined
-  </script>
+  console.log(myObject.getName()); // sven
+  console.log(myObject._name); // undefined
+  </code></pre>
 
   <h4>封装实现</h4>
   <p>
@@ -174,27 +178,27 @@
   <h3>使用克隆的原型模式</h3>
   <p>场景：如果需要一个跟某个对象一模一样的对象，就可以使用原型模式</p>
 
-  <script>
-    var Plane = function() {
-      this.blood = 100;
-      this.attackLevel = 1;
-      this.defenseLevel = 1;
-    };
+  <pre><code>
+  var Plane = function() {
+    this.blood = 100;
+    this.attackLevel = 1;
+    this.defenseLevel = 1;
+  };
 
-    var plane = new Plane();
-    plane.blood = 500;
-    plane.attackLevel = 10;
-    plane.defenseLevel = 7;
+  var plane = new Plane();
+  plane.blood = 500;
+  plane.attackLevel = 10;
+  plane.defenseLevel = 7;
 
-    Object.create = Object.create || function(obj) {
-      var F = function() {};
-      F.prototype = obj;
-      return new F();
-    };
+  Object.create = Object.create || function(obj) {
+    var F = function() {};
+    F.prototype = obj;
+    return new F();
+  };
 
-    var clonePlane = Object.create(plane);
-    console.log(clonePlane);
-  </script>
+  var clonePlane = Object.create(plane);
+  console.log(clonePlane);
+  </code></pre>
 
   <h4>原型编程范型的一些规则</h4>
   <ul>
@@ -204,61 +208,61 @@
     <li>如果对象无法响应某个请求，它会把这个请求委托给它自己的原型</li>
   </ul>
 
-  <script>
-    var obj1 = new Object();
-    var obj2 = {};
-    
-    // Object.prototype是JavaScript中的根对象，所有的对象对象从Object.prototype对象克隆而来
-    console.log(Object.getPrototypeOf(obj1) === Object.prototype);
-    console.log(Object.getPrototypeOf(obj2) === Object.prototype);
+  <pre><code>
+  var obj1 = new Object();
+  var obj2 = {};
+  
+  // Object.prototype是JavaScript中的根对象，所有的对象对象从Object.prototype对象克隆而来
+  console.log(Object.getPrototypeOf(obj1) === Object.prototype);
+  console.log(Object.getPrototypeOf(obj2) === Object.prototype);
 
-    function Person(name) {
-      this.name = name;
-    }
+  function Person(name) {
+    this.name = name;
+  }
 
-    Person.prototype.getName = function() {
-      return this.name;
-    };
+  Person.prototype.getName = function() {
+    return this.name;
+  };
 
-    // new 操作符经历4个步骤
-    // 1.创建一个对象
-    // 2.将构造函数的作用域赋给新对象（因此this就指向了这个新对象）
-    // 3.执行构造函数中的代码（为这个新对象添加属性）
-    // 4.返回新对象
-    var a = new Person('sven');
-    console.log(a.name);
-    console.log(a.getName());
-    console.log(Object.getPrototypeOf(a) === Person.prototype);
+  // new 操作符经历4个步骤
+  // 1.创建一个对象
+  // 2.将构造函数的作用域赋给新对象（因此this就指向了这个新对象）
+  // 3.执行构造函数中的代码（为这个新对象添加属性）
+  // 4.返回新对象
+  var a = new Person('sven');
+  console.log(a.name);
+  console.log(a.getName());
+  console.log(Object.getPrototypeOf(a) === Person.prototype);
 
-    // 模拟new过程
-    function Person(name) {
-      this.name = name;
-    }
+  // 模拟new过程
+  function Person(name) {
+    this.name = name;
+  }
 
-    Person.prototype.getName = function() {
-      return this.name;
-    };
+  Person.prototype.getName = function() {
+    return this.name;
+  };
 
-    // 某个对象的__proto__属性默认会指向它的构造器的原型对象，即{Constructor}.prototype
-    var objectFactory = function() {
-      // 从Object.prototype克隆空对象
-      var obj = new Object(); // var obj = Object.create(Object.prototype);
-      // 获取外部传入的构造器
-      // shift会修改原始对象
-      var Constructor = [].shift.call(arguments);
-      // 指向正确的原型
-      obj.__proto__ = Constructor.prototype;
-      var ret = Constructor.apply(obj, arguments);
+  // 某个对象的__proto__属性默认会指向它的构造器的原型对象，即{Constructor}.prototype
+  var objectFactory = function() {
+    // 从Object.prototype克隆空对象
+    var obj = new Object(); // var obj = Object.create(Object.prototype);
+    // 获取外部传入的构造器
+    // shift会修改原始对象
+    var Constructor = [].shift.call(arguments);
+    // 指向正确的原型
+    obj.__proto__ = Constructor.prototype;
+    var ret = Constructor.apply(obj, arguments);
 
-      // 确认构造器返回一个对象
-      return typeof ret === 'object' ? ret : obj;
-    };
+    // 确认构造器返回一个对象
+    return typeof ret === 'object' ? ret : obj;
+  };
 
-    var a = objectFactory(Person, 'sven');
+  var a = objectFactory(Person, 'sven');
 
-    console.log(a.name);
-    console.log(a.getName());
-    console.log(Object.getPrototypeOf(a) === Person.prototype);
-  </script>
+  console.log(a.name);
+  console.log(a.getName());
+  console.log(Object.getPrototypeOf(a) === Person.prototype);
+  </code></pre>
 </body>
 </html>
