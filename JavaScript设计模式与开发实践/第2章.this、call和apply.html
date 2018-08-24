@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>this、call和apply</title>
+  <link rel="stylesheet" href="../lib/styles/default.css">
+  <link rel="stylesheet" href="../lib/styles/atom-one-dark.css">
+  <script src="../lib/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+  <h3>2.1 this</h3>
+  <h4>this的指向</h4>
+  <ul>
+    <li>作为对象的方法调用</li>
+    <li>作为普通函数调用</li>
+    <li>构造器调用</li>
+    <li>Function.prototype.call或Function.prototype.apply调用</li>
+  </ul>
+
+  <p>作为对象调用：当函数作为对象的方法被调用时，this指向该对象</p>
+  <pre><code>
+  var obj = {
+    a: 1,
+    getA: function() {
+      alert(this === obj); // true
+      alert(this.a) // 1
+    }
+  };
+
+  obj.getA();
+  </code></pre>
+
+  <p>作为普通函数调用：this指向全局对象</p>
+  <pre><code>
+  window.name = 'globalName';
+  var getName = function() {
+    return this.name;
+  };
+  console.log(getName()); // globalName
+
+  // 或者
+
+  window.name = 'globalName';
+  var myObject = {
+    name: 'sven',
+    getName: function() {
+      return this.name;
+    }
+  };
+  var getName = myObject.getName();
+  console.log(getName()); // globalName
+
+  // 严格模式，this不会指向全局变量
+  function func() {
+    'use strict';
+    alert(this); // undefined
+  }
+
+  func();
+  </code></pre>
+
+  <p>构造器调用：this指向返回的对象</p>
+  <pre><code>
+  // 构造函数中不指定返回
+  var MyClass = function() {
+    this.name = 'sven';
+  };
+  var obj = new MyClass();
+  alert(obj.name); // sven
+
+  // 构造函数中返回对象
+  var MyClass = function() {
+    this.name = 'sven';
+    return {
+      name: 'anne'
+    };
+  };
+
+  var obj = new MyClass();
+  alert(obj.name); // anne
+
+  // 构造函数返回非对象类型的数据
+  var MyClass = function() {
+    this.name = 'sven';
+    return 'anne';
+  };
+  var obj = new MyClass();
+  alert(obj.name); // sven
+  </code></pre>
+
+  <p>Function.prototype.call 或 Function.prototype.apply 调用：动态修改this指向</p>
+  <pre><code>
+  var obj1= {
+    name: 'sven',
+    getName: function() {
+      return this.name;
+    }
+  };
+  var obj2 = {
+    name: 'anne'
+  };
+  console.log(obj1.getName()); // sven
+  console.log(obj1.getName.call(obj2)); // anne
+  </code></pre>
+
+  <h4>丢失的this</h4>
+  <pre><code>
+  var obj = {
+    myName: 'sven',
+    getName: function() {
+      return this.myName;
+    }
+  };
+  console.log(obj.getName()); // sven
+  var getName2 = obj.getName;
+  console.log(getName2()); // undefined
+
+  // document.getElementById
+  // html: &lt;div id="div1"&gt;xxxx &lt;/div&gt;
+  var getId = function(id) {
+    return document.getElementById(id);
+  };
+  getId('div1'); // 正常输出
+
+  // 作为普通函数时，document.getElementById内部的this指向了全局对象
+  // 而非document，导致报错
+  var getId = document.getElementById;
+  getId('div1'); // Uncaught TypeError: Illegal invocation
+
+  // 修改版本
+  document.getElementById = (function(func) {
+    return function() {
+      func.apply(document, arguments);
+    }
+  })(document.getElementById);
+
+  var getId = document.getElementById;
+  var div = getId('div1');
+
+  alert(div.id); // div1;
+  </code></pre>
+
+  <h3>2.2 call和apply</h3>
+  <h4>call与apply的区别</h4>
+  <ul>
+    <li>apply接收两个参数，第一个参数用来指定函数体内的this，第二个参数是集合，数组或者类数组</li>
+    <li>call的参数不固定，第一个参数用来指定函数体内的this，从第二个参数开始都是传入函数的参数</li>
+  </ul>
+  <pre><code>
+  var func = function(a, b, c) {
+    alert([a, b, c]); // [1, 2, 3]
+  }
+  func.apply(null, [1, 2, 3]);
+
+  var func = function(a, b, c) {
+    alert([a, b, c]);
+  }
+  func.call(null, 1, 2, 3);
+  </code></pre>
+  <p>当调用一个函数时，JavaScript解释器不计较形参和实参在数量、类型、顺序的区别，所有的参数用数组来表示，apply比call使用率更高，call是apply的语法糖</p>
+  <p>当使用call或apply是，如果传入的第一个参数是null，函数体内的this则指向默认的宿主对象，严格模式下指向null</p>
+  <pre><code>
+  var func = function(a, b, c) {
+    alert(this === window); // true
+  };
+  func.apply(null, [1, 2, 3]);
+
+  // 严格模式下
+  var func = function() {
+    'use strict';
+    alert(this === null); // true
+  };
+  func.apply(null, [1, 2, 3]);
+  </code></pre>
+
+  <h4>call和apply的用途</h4>
+  <p>改变this的指向</p>
+  <pre><code>
+  var obj1 = {
+    name: 'sven'
+  };
+  var obj2 = {
+    name: 'anne'
+  };
+  window.name = 'window';
+  var getName = function() {
+    alert(this.name);
+  };
+  getName(); // window
+  getName.call(obj1); // sven
+  getName.call(obj2); // anne
+  </code></pre>
+
+  <p>Function.prototype.bind</p>
+  <pre><code>
+  Function.prototype.bind = function(context) {
+    var self = this;
+    return function() {
+      return self.apply(context, arguments);
+    };
+  };
+  var obj = {
+    name: 'sven'
+  };
+  var func = function() {
+    alert(this.name);
+  }.bind(obj);
+  func(); // sven
+
+  // 升级版
+  Function.prototype.bind = function() {
+    var self = this;
+    var context = [].shift.call(arguments);
+    var args = [].slice.call(arguments);
+    return function() {
+      // 取出之前指定的context，同时组合两次参数
+      return self.apply(context, [].concat.call(args, [].slice.call(arguments)));
+    };
+  };
+  var obj = {
+    name: 'sven'
+  };
+  var func = function(a, b, c, d) {
+    alert(this.name); // sven
+    alert([a, b, c, d]); // [1, 2, 3, 4]
+  }.bind(obj, 1, 2);
+  func(3, 4);
+  </code></pre>
+
+  <p>借助其他对象的方法</p>
+  <p>借助构造函数</p>
+  <pre><code>
+  var A = function(name) {
+    this.name = name;
+  };
+  var B = function() {
+    A.apply(this, arguments);
+  };
+  B.prototype.getName = function() {
+    return this.name;
+  };
+  var b = new B('sven');
+  console.log(b.getName()); // sven
+  </code></pre>
+
+  <p>借助Array.prototype对arguments进行数组类操作</p>
+  <pre><code>
+  (function() {
+    Array.prototype.push.call(arguments, 3);
+    console.log(arguments); // Object(1, 2, 3)，返回是对象
+  })(1, 2);
+  </code></pre>
+</body>
+</html>
