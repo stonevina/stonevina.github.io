@@ -253,5 +253,26 @@
     console.log(arguments); // Object(1, 2, 3)，返回是对象
   })(1, 2);
   </code></pre>
+  
+  <p>使用Array.prototype.push至少满足两个条件</p>
+  <ul>
+    <li>对象本身要可以存取属性</li>
+    <li>对象的length属性可读写</li>
+  </ul>
+
+  <p>对象本身要可以存取属性</p>
+  <pre><code>
+  var a = 1;
+  Array.prototype.push.call(a, 'first');
+  alert(a.length); // undefined
+  alert(a[0]); // undefined
+  </code></pre>
+
+  <p>对象的length属性可读写</p>
+  <pre><code>
+  var func = function() {};
+  Array.prototype.push.call(func, 'first');
+  alert(func.length); // Cannot assign to read only property 'length' of function 'function() {}'
+  </code></pre>
 </body>
 </html>
