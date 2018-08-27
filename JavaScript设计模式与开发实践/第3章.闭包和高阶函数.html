@@ -125,5 +125,443 @@
   Type.isArray([]); // true
   Type.isString('str'); // true
   </code></pre>
+
+  <p>3.1.3 闭包的更多作用</p>
+  <p>封装变量</p>
+  <pre><code>
+  // 初版，计算乘机
+  var mult = function() {
+    var a = 1;
+    for (var i = 0, l = arguments.length; i < l; i++) {
+      a = a * arguments[i];
+    }
+    return a;
+  };
+
+  // 改造：增加缓存，提高性能
+  var cache = {};
+  var mult = function() {
+    var args = Array.prototype.join.call(arguments, ',');
+    if (cache[args]) {
+      return cache[args];
+    }
+
+    var a = 1;
+    for (var i = 0, l = arguments.length; i < l; i++) {
+      a = a * arguments[i];
+    }
+    return cache[args] = a;
+  };
+
+  alert(mult(1, 2, 3)); // 6
+  alert(mult(1, 2, 3));
+
+  // 改造：减少全局变量，防篡改，将cache改为局部变量
+  var mult = (function() {
+    var cache = {};
+    return function() {
+      var args = Array.prototype.join.call(arguments, ',');
+      if (args in cache) {
+        return cache[args];
+      }
+      var a = 1;
+      for (var i = 0, l = arguments.length; i < l; i++) {
+        a = a * arguments[i];
+      }
+      return cache[args] = a;
+    };
+  })();
+
+  // 改造：使用闭包，提炼函数，重构代码
+  var mult = (function() {
+    var cache = {};
+    var calculate = function() {
+      var a = 1;
+      for (var i = 0, l = arguments.length; i < l; i++) {
+        a = a * arguments[i];
+      }
+      return a;
+    };
+
+    return function() {
+      var args = Array.prototype.join.call(arguments, ',');
+      if (args in cache) {
+        return cache[args];
+      }
+
+      return cache[args] = calculate.apply(null, arguments);
+    };
+  })();
+  </code></pre>
+
+  <p>延续局部变量的寿命</p>
+  <pre><code>
+  // 通过图片上传数据，低版本浏览器下存在数据丢失
+  // 原因是report执行完成后，img被销毁，但有可能http请求还未发送
+  var report = function(src) {
+    var img = new Image();
+    img.src = src;
+  };
+  report('http://xxx.com/getUserInfo');
+
+  // 改造
+  var report = (function() {
+    var imgs = [];
+    return function(src) {
+      var img = new Image();
+      imgs.push(img);
+      img.src = src;
+    };
+  })();
+  </code></pre>
+
+  <p>3.1.4 闭包和面向对象设计</p>
+  <p>可以使用闭包来表达面向对象的思想</p>
+  <pre><code>
+  // 闭包
+  var extend = function() {
+    var value = 0;
+    return {
+      call: function() {
+        value++;
+        console.log(value);
+      }
+    };
+  };
+  var extend = extend();
+  extend.call(); // 1
+  extend.call(); // 2
+  extend.call(); // 3
+
+  // 面向对象
+  var extend = {
+    value: 0,
+    call: function() {
+      this.value++;
+      console.log(this.value);
+    }
+  };
+  extend.call(); // 1
+  extend.call(); // 2
+  extend.call(); // 3
+
+  // 或者
+  var Extend = function() {
+    this.value = 0;
+  };
+  Extend.prototype.call = function() {
+    this.value++;
+    console.log(this.value);
+  };
+  var extend = new Extend();
+  extend.call(); // 1
+  extend.call(); // 2
+  extend.call(); // 3
+  </code></pre>
+
+  <p>3.1.5 用闭包实现命令模式</p>
+  <p>面向对象显示保存接收者，而闭包无需手动实现保存接收者对象</p>
+  <p>html结构</p>
+  <pre><code>
+  &lt;button id="execute"&gt;点击我执行命令&lt;/button&gt;
+  &lt;button id="undo"&gt;点击我执行命令&lt;/button&gt;
+  </code></pre>
+  <p>两种实现方式比较</p>
+  <pre><code>
+  // 面向对象的方式
+  var Tv = {
+    open: function() {
+      console.log('打开电视机');
+    },
+    close: function() {
+      console.log('关上电视机');
+    }
+  };
+  var OpenTvCommand = function(receiver) {
+    this.receiver = receiver;
+  };
+  OpenTvCommand.prototype.execute = function() {
+    this.receiver.open();
+  };
+  OpenTvCommand.prototype.undo = function() {
+    this.receiver.close();
+  };
+  var setCommand = function(command) {
+    document.getElementById('execute').onclick = function() {
+      command.execute(); // 打开
+    };
+    document.getElementById('undo').onclick = function() {
+      command.undo(); // 关闭
+    };
+  };
+  setCommand(new OpenTvCommand(Tv));
+
+  // 闭包形式
+  var Tv = {
+    open: function() {
+      console.log('打开电视机');
+    },
+    close: function() {
+      console.log('关上电视机');
+    }
+  };
+  var createCommand = function(receiver) {
+    var execute = function() {
+      return receiver.open();
+    };
+    var undo = function() {
+      return receiver.close();
+    };
+    return {
+      execute: execute,
+      undo: undo
+    };
+  };
+  var setCommand = function(command) {
+    document.getElementById('execute').onclick = function() {
+      command.execute(); // 打开
+    };
+    document.getElementById('undo').onclick = function() {
+      command.undo(); // 关闭
+    };
+  };
+  setCommand(createCommand(Tv));
+  </code></pre>
+
+  <p>3.1.6 闭包与内存管理</p>
+  <ul>
+    <li>闭包会导致内存泄漏是种误解，变量放在闭包与全局作用域中，效果是一样的，如果需要回收这些变量，设置变量为null即可解决</li>
+    <li>循环引用会导致内存泄漏，而闭包容易引起循环引用，尤其是闭包中包含了一些DOM节点。在IE中，BOM和DOM是使用C++以COM对象方式实现，而COM的垃圾回收是采用引用计数的方式，如果存在循环引用则无法回收。设置循环引用的变量为null即可解决</li>
+  </ul>
+
+  <h3>3.2 高阶函数</h3>
+  <p>高阶函数需要满足以下条件之一</p>
+  <ul>
+    <li>函数可以作为参数被传递</li>
+    <li>函数可以作为返回值输出</li>
+  </ul>
+
+  <p>3.2.1 函数作为参数传递</p>
+  <p>分离变化与不变的部分</p>
+  <p>回调函数</p>
+  <pre><code>
+  // 异步请求
+  var getUserInfo = function(userId, callback) {
+    $.ajax('http://xxx.com/getUserInfo?' + userId, function(data) {
+      if (typeof callback === 'function') {
+        callback(data);
+      }
+    });
+  };
+  getUserInfo(13157, function(data) {
+    alert(data.userName);
+  });
+
+  // 委托代理
+  // 添加100个div，并隐藏
+  var appendDiv = function() {
+    for (var i = 0; i < 100; i++) {
+      var div = document.createElement('div');
+      div.innerHTML = i;
+      document.body.appendChild(div);
+      div.style.display = 'none';
+    }
+  };
+  appendDiv();
+
+  // 改造，分离变化的部分，改为参数传入
+  var appendDiv = function(callback) {
+    for (var i = 0; i < 100; i++) {
+      var div = document.createElement('div');
+      div.innerHTML = i;
+      document.body.appendChild(div);
+      if (typeof callback === 'function') {
+        callback(div);
+      }
+    }
+  };
+  appendDiv(function(node) {
+    node.style.display = 'none';
+  });
+  </code></pre>
+
+  <p>Array.prototype.sort</p>
+  <p>Array.prototype.sort方法接受一个函数最为排序规则，排序功能不变，但规则多变，则将可变的规则分离，作为参数传入</p>
+
+  <p>3.2.2 函数作为返回值输出</p>
+  <p>判断数据的类型</p>
+  <pre><code>
+  var isType = function(type) {
+    return function(obj) {
+      return Object.prototype.toString.call(obj) === '[object ' + type +']'; 
+    };
+  };
+  var isString = isType('String');
+  var isArray = isType('Array');
+  var isNumber = isType('Number');
+  console.log(isArray([1, 2, 3])); // true
+
+  // 或者
+  var Type = {};
+  for (var i = 0, type; type = ['String', 'Array', 'Number'][i++];) {
+    (function(type) {
+      Type['is' + type] = function(obj) {
+        return Object.prototype.toString.call(obj) === '[object ' + type + ']';
+      }
+    })(type);
+  }
+  Type.isString('str'); // true
+  Type.isArray([]); // true
+  </code></pre>
+
+  <p>getSingle</p>
+  <pre><code>
+  // 函数既作为参数，又作为返回值输出
+  var getSingle = function(fn) {
+    var ret;
+    return function() {
+      return ret || (ret = fn.apply(this, arguments));
+    };
+  };
+  var getScript = getSingle(function() {
+    return document.createElement('script');
+  });
+  var script1 = getScript();
+  var script2 = getScript();
+  alert(script1 === script2); // true;
+  </code></pre>
+
+  <p>3.2.3 高阶函数实现AOP</p>
+  <p>AOP（面向切面编程）将和业务逻辑模块无关的功能抽离出来，然后再“动态织入”的方式掺入到业务模块中。有两个好处，一是保证了业务模块的纯净和高内聚；而是保证了与业务模块无关功能的复用，如日志统计、安全、异常处理等</p>
+  <p>Java中是通过反射与动态代理机制实现AOP。在JavaScript中实现AOP是指把一个函数“动态织入”到另外一个函数之中</p>
+  <pre><code>
+  // 通过Function.prototype实现AOP
+  Function.prototype.before = function(beforefn) {
+    var __self = this;
+    return function() {
+      beforefn.apply(this, arguments);
+      return __self.apply(this, arguments);
+    };
+  };
+  Function.prototype.after = function(afterfn) {
+    var __self = this;
+    return function() {
+      var ret = __self.apply(this, arguments);
+      afterfn.apply(this, arguments);
+      return ret;
+    };
+  };
+  var func = function() {
+    console.log(2);
+  };
+  func = func.before(function() {
+    console.log(1);
+  }).after(function() {
+    console.log(3);
+  });
+
+  func(); // 顺序输出1 2 3
+  </code></pre>
+
+  <p>3.2.4 高阶函数的其他应用</p>
+  <p>currying，函数柯里化，最早是俄国数学家 Moses Schönfinkel提出，后由数理逻辑学家 Haskell Curry 丰富和发展</p>
+  <p>currying又称部分求值，是指一个currying函数刚开始接收参数时，并不会立即求值，而是返回一个函数，之前传入的参数被保存，等到真正需要求值时，之前的参数会被一并取出用于求值</p>
+  <pre><code>
+  // 计算每月开销
+  var monthlyCost = 0;
+  var cost = function(money) {
+    monthlyCost += money;
+  };
+  cost(100);
+  cost(200);
+  cost(300);
+  alert(monthlyCost); // 600
+
+  // 改造：不计算每天的
+  var cost = (function() {
+    var args = [];
+    return function() {
+      if (arguments.length === 0) {
+        var money = 0;
+        for (var i = 0, l = args.length; i < l; i++) {
+          money += args[i];
+        }
+        return money;
+      } else {
+        [].push.apply(args, arguments);
+      }
+    };
+  })();
+  cost(100); // 只添加，不计算
+  cost(200);
+  cost(300);
+  console.log(cost()); // 600
+
+  // 升级
+  var currying = function(fn) {
+    var args = [];
+    return function() {
+      if (arguments.length === 0) {
+        return fn.apply(this, args);
+      } else {
+        [].push.apply(args, arguments);
+        return arguments.callee;
+      }
+    };
+  };
+  var cost = (function() {
+    var money = 0;
+    return function() {
+      for (var i = 0, l = arguments.length; i < l; i++) {
+        money += arguments[i];
+      }
+      return money;
+    };
+  })();
+  var cost = currying(cost);
+  cost(100);
+  cost(200);
+  cost(300);
+  console.log(cost()); // 600
+  </code></pre>
+
+  <p>uncurrying</p>
+  <script type="text/javascript">
+  Function.prototype.uncurrying = function() {
+    var self = this;
+    return function() {
+      var obj = Array.prototype.shift.call(arguments);
+      return self.apply(obj, arguments);
+    };
+  };
+
+  var push = Array.prototype.push.uncurrying();
+  (function() {
+    push(arguments, 4);
+    console.log(arguments); // Arguments[1, 2, 3, 4]
+  })(1, 2, 3);
+
+  // uncurrying call和apply
+  var call = Function.prototype.call.uncurrying();
+  var fn = function(name) {
+    console.log(name);
+  };
+  call(fn, window, 'sven'); // sven
+
+  var apply = Function.prototype.apply.uncurrying();
+  var fn = function(name) {
+    console.log(this.name); // sven
+    console.log(arguments); // Arguments[1, 2, 3]
+  };
+  apply(fn, { name: 'sven' }, [1, 2, 3]);
+
+  // uncurrying另种实现
+  Function.prototype.uncurrying = function() {
+    var self = this;
+    return function() {
+      return Function.prototype.call.apply(self, arguments);
+    };
+  };
+  </script>
 </body>
 </html>
