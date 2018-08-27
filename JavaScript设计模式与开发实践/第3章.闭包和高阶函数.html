@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>闭包和高阶函数</title>
+  <link rel="stylesheet" href="../lib/styles/default.css">
+  <link rel="stylesheet" href="../lib/styles/atom-one-dark.css">
+  <script src="../lib/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+  <h3>3.1 闭包</h3>
+
+  <h4>3.1.1 变量的作用域</h4>
+  <p>变量的作用域，就是指变量的有效范围</p>
+  <p>函数用来创建作用域，函数中声明变量</p>
+  <ul>
+    <li>变量未带var，变量成为全局变量</li>
+    <li>带上var，即为局部变量，智能内部访问，外部不能访问</li>
+  </ul>
+  <pre><code>
+  var func = function() {
+    var a = 1;
+    alert(a); // 1
+  };
+  func();
+  alert(a); // Uncaught ReferenceError: a is not defined
+  </code></pre>
+  <p>变量的搜索沿着作用域链从内到外逐层进行，直到全局变量为止</p>
+  <pre><code>
+  var a = 1;
+  var func1 = function() {
+    var b = 2;
+    var func2 = function() {
+      var c = 3;
+      alert(b); // 2;
+      alert(a); // 1
+    };
+    func2();
+    alert(c); // Uncaught ReferenceError: c is not defined
+  };
+  func1();
+  </code></pre>
+
+  <h4>3.1.2 变量的生存周期</h4>
+  <p>全局变量的生存周期是永久的，除非主动销毁变量；函数内var声明的局部变量，当退出函数时，局部变量随着函数调用的结束而被销毁</p>
+  <pre><code>
+  var func = function() {
+    var a = 1; // 退出函数后，局部变量a将被销毁
+    alert(a);
+  };
+  func();
+
+  // 改造
+  // 当退出函数后，局部变量a没有销毁
+  // var f = func(); f返回一个匿名函数的引用，匿名函数中有对局部变量a的引用，导致局部变量不能销毁，形成闭包
+  var func = function() {
+    var a = 1;
+    return function() {
+      a++;
+      alert(a);
+    };
+  };
+  var f = func();
+  f(); // 2
+  f(); // 3
+  f(); // 4
+  f(); // 5
+  </code></pre>
+  <p>经典应用，由于onclick是异步操作，回调函数执行时，for循环执行结束，i值是5</p>
+  <pre><code>
+  &lt;html&gt;
+    &lt;body&gt;
+      &lt;div&gt;1&lt;/div&gt;
+      &lt;div&gt;2&lt;/div&gt;
+      &lt;div&gt;3&lt;/div&gt;
+      &lt;div&gt;4&lt;/div&gt;
+      &lt;div&gt;5&lt;/div&gt;
+      &lt;script&gt;
+        var nodes = docment.getElementByTagName('div');
+        for (var i = 0, len = nodes.length; i < len; i++) {
+          nodes[i].onclick = function() {
+            alert(i); // 一直显示5
+          };
+        }
+      &lt;/script&gt;
+    &lt;/body&gt;
+  &lt;/html&gt;
+  
+  // 利用闭包改造
+
+  &lt;html&gt;
+    &lt;body&gt;
+      &lt;div&gt;1&lt;/div&gt;
+      &lt;div&gt;2&lt;/div&gt;
+      &lt;div&gt;3&lt;/div&gt;
+      &lt;div&gt;4&lt;/div&gt;
+      &lt;div&gt;5&lt;/div&gt;
+      &lt;script&gt;
+        var nodes = docment.getElementByTagName('div');
+        for (var i = 0, len = nodes.length; i < len; i++) {
+          (function(i) {
+            nodes[i].onclick = function() {
+              alert(i); // 依次展示0, 1, 2, 3, 4
+            };
+          })(i);
+        }
+      &lt;/script&gt;
+    &lt;/body&gt;
+  &lt;/html&gt;
+  </code></pre>
+
+  <p>闭包demo</p>
+  <pre><code>
+  var Type = {};
+  for (var i = 0, type; type = ['String', 'Array', 'Number'][i++];) {
+    (function(type) {
+      Type['is' + type] = function(obj) {
+        return Object.prototype.toString.call(obj) === '[object ' + type + ']';
+      };
+    })(type);
+  }
+  Type.isArray([]); // true
+  Type.isString('str'); // true
+  </code></pre>
+</body>
+</html>
