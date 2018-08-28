@@ -526,7 +526,7 @@
   </code></pre>
 
   <p>uncurrying</p>
-  <script type="text/javascript">
+  <pre><code>
   Function.prototype.uncurrying = function() {
     var self = this;
     return function() {
@@ -562,6 +562,150 @@
       return Function.prototype.call.apply(self, arguments);
     };
   };
-  </script>
+  </code></pre>
+
+  <p>函数节流</p>
+  <p>某些场景下，函数被频繁调用，影响性能。函数被频繁调用的场景</p>
+  <ul>
+    <li>window.onresize事件</li>
+    <li>mousemove事件</li>
+    <li>上传进度</li>
+  </ul>
+  <p>函数节流的原理：利用setTimeout忽略掉某一时间内的请求</p>
+  <pre><code>
+  var throttle = function(fn, interval) {
+    var __self = fn;
+    var timer;
+    var firstTime = true;
+
+    return function() {
+      var args = arguments;
+      var __me = this;
+
+      if (firstTime) {
+        // 第一次，不需要延迟执行
+        __self.apply(__me, args);
+        return firstTime = false;
+      }
+
+      // 如果上一次延迟执行未完成，则忽略新的请求
+      if (timer) {
+        return false;
+      }
+
+      // 延迟执行
+      timer = setTimeout(function() {
+        clearTimeout(timer);
+        timer = pull;
+        __self.apply(__me, args);
+      }, interval || 500);
+    };
+  };
+
+  window.onresize = throttle(function() {
+    console.log(1);
+  }, 500);
+  </code></pre>
+
+  <p>分时函数</p>
+  <p>某些函数由用户主动调用，影响性能，例如加载WebQQ的QQ好友列表</p>
+  <pre><code>
+  // 页面可能会出现卡顿
+  var ary = [];
+  for (var i = 0; i <= 1000; i++) {
+    ary.push(i);
+  }
+  var renderFriendList = function(data) {
+    for (var i = 0, l = data.length; i < l; i++) {
+      var div = document.createElement('div');
+      div.innerHTML = i;
+      document.body.appendChild(div);
+    }
+  };
+  renderFriendList(ary);
+
+  // 改进：使用timeChunk函数，改为分批创建
+  var timeChunk = function(ary, fn ,count) {
+    var obj, t;
+    var len = ary.length;
+    var start = function() {
+      for (var i = 0; i < Math.min(count || 1, ary.length); i++) {
+        var obj = ary.shift();
+        fn(obj);
+      };
+    };
+
+    return function() {
+      t = setInterval(function() {
+        if (ary.length === 0) {
+          return clearInterval(t);
+        }
+        start();
+      }, 200);
+    };
+  };
+
+  // 每批只创建8个节点
+  var ary = [];
+  for (var i = 0; i <= 1000; i++) {
+    ary.push(i);
+  }
+  var renderFriendList = timeChunk(ary, function(n) {
+    var div = document.createElement('div');
+    div.innerHTML = n;
+    document.body.appendChild(div);
+  }, 8);
+  renderFriendList();
+  </code></pre>
+
+  <p>惰性加载函数</p>
+  <pre><code>
+  // 事件绑定函数，使用addEvent时，每次都执行判断条件
+  var addEvent = function(elem, type, handler) {
+    if (window.addEventListener) {
+      return elem.addEventListener(type, handler, false);
+    }
+    if (window.attachEvent) {
+      return elem.attachEvent('on' + type, handler);
+    }
+  };
+
+  // 改造：只判断一次，但是可能出现不适用函数的场景，addEvent默认执行，影响性能
+  var addEvent = (function() {
+    if (window.addEventListener) {
+      return function(elem, type, handler) {
+        elem.addEventListener(type, handler, false);
+      }
+    }
+    if (window.attachEvent) {
+      return function(elem, type, handler) {
+        elem.attachEvent('on' + type, handler);
+      }
+    }
+  })();
+
+  // 改造：只进行一次判断，之后重写函数，以后不会再判断
+  var addEvent = function(elem, type, handler) {
+    if (window.addEventListener) {
+      addEvent = function(elem, type, handler) {
+        elem.addEventListener(type, handler, false);
+      };
+    } else if (window.attachEvent) {
+      addEvent = function(elem, type, handler) {
+        elem.attachEvent(on + 'type', handler);
+      };
+    }
+    addEvent(elem, type, handler);
+  };
+
+  // 使用
+  var div = document.getElementById('xxx');
+  addEvent(div, 'click', function() {
+    alert(1);
+  });
+  addEvent(div, 'click', function() {
+    alert(2);
+  });
+  </code></pre>
 </body>
 </html>

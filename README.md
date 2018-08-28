@@ -8,6 +8,9 @@
 - [编译型语言、解释型语言、静态类型语言、动态类型语言概念与区别](https://www.cnblogs.com/zy1987/p/3784753.html)
 - [如何阅读大型前端开源项目的源码](https://github.com/ProtoTeam/blog/blob/master/201805/3.md)
 
+### 有意思的题
+- [Function.prototype.call.apply](https://blog.csdn.net/bbirdsky/article/details/9232365)
+
 ### 开发/调试工具
 - [app-inspector](https://github.com/macacajs/app-inspector)-App-inspector is a mobile UI viewer in browser.
 - [xterm.js](https://github.com/xtermjs/xterm.js)-A terminal for the web
