@@ -6,6 +6,7 @@
 - [迷茫时学习Node.js最好的方法](https://zhuanlan.zhihu.com/p/29625882)
 - [通过开源项目去学习](https://github.com/i5ting/Study-For-StuQ)
 - [编译型语言、解释型语言、静态类型语言、动态类型语言概念与区别](https://www.cnblogs.com/zy1987/p/3784753.html)
+- [如何阅读大型前端开源项目的源码](https://github.com/ProtoTeam/blog/blob/master/201805/3.md)
 
 ### 开发/调试工具
 - [app-inspector](https://github.com/macacajs/app-inspector)-App-inspector is a mobile UI viewer in browser.
