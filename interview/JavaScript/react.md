@@ -1,0 +1,11 @@
+### React相关
+- react
+  - 虚拟dom
+  - 原理
+  - diff
+  - 生命周期
+- redux
+  - 原理
+- immutable
+  - 原理
+  - 解决的问题
