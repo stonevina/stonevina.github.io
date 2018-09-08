@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <div id="test">1</div>
+  <script type="text/javascript">
+    setTimeout(function() {
+      document.getElementById('test').innerText = 2;
+      console.log('2');
+      setTimeout(function() {
+        console.log('inner');
+      }, 100);
+    }, 0);
+    setTimeout(function() {
+      console.log('outter');
+    }, 300);
+    setTimeout(function() {
+      document.getElementById('test').innerText = 3;
+      console.log('3');
+    }, 0);
+    setTimeout(function() {
+      document.getElementById('test').innerText = 4;
+      console.log('4');
+    }, 0);
+  </script>
+
+  <script>
+    setTimeout(function() {
+      console.log(1);
+      setTimeout(function() {
+        console.log(3);
+        setTimeout(function() {
+          console.log(4);
+          setTimeout(function() {
+            console.log(6);
+          }, 100);
+        }, 100);
+      }, 100);
+    }, 0);
+
+    setTimeout(function() {
+      console.log(2);
+    }, 0);
+
+    setTimeout(function() {
+      console.log(5);
+    }, 300);
+  </script>
+</body>
+</html>
