@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="1.css">
+
+  <script src="https://cdn.bootcss.com/loadCSS/2.0.1/loadCSS.js"></script>
+  <script>
+    loadCSS("2.css");
+  </script>
+  
+  <!-- 2.css wins the precedence battle -->
+  <!-- 2.css will be injected right here -->
+</head>
+<body>
+  <div class="module module-foo module-bar module-late">
+    Module
+  </div>
+</body>
+</html>

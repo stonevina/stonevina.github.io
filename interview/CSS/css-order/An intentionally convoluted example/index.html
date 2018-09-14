@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+
+  <!-- #1 -->
+  <link rel="stylesheet" href="1.css">
+
+  <!-- #2 -->
+  <style>
+    .module-baz {
+      background-color: pink;
+    }
+  </style>
+
+</head>
+<body>
+  <div class="module module-foo module-bar module-baz">
+    Module
+  </div>
+
+  <!-- #3 -->
+  <!-- #3 is the last declared, so it wins the precedence battle -->
+  <style>
+    @import "2.css";
+    /*
+      Contains
+      .module-bar { background: #f06d06; }
+    */
+  </style>
+
+</body>
+</html>
